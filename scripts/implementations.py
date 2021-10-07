@@ -79,16 +79,13 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
 
 def least_squares(y, tx):
     gram_matrix = np.dot(tx,tx.T)
-    if np.linalg.det(gram_matrix) != 0:
-        w = np.dot(np.linalg.inv(gram_matrix) , np.dot(tx, y))
-    else:
-        w = np.linalg.solve(gram_matrix, np.dot(tx,y))
+    w = w = np.linalg.solve(gram_matrix, np.dot(tx,y))
     loss = compute_loss(y,tx,w,'mse')
     return (w, loss)
         
         
 def ridge_regression(y,tx,lambda_):
-        return np.dot((np.dot(tx,(tx.T)) + lambda_/(2*len(y)) * np.identity(tx.shape[0])) , np.dot(tx,y))
+        return np.dot((np.dot(tx,(tx.T)) + lambda_*(2*len(y)) * np.identity(tx.shape[0])) , np.dot(tx,y))
         
         
 ### LOGISTIC REGRESSION
