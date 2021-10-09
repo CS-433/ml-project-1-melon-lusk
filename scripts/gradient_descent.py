@@ -20,11 +20,17 @@ def general_gradient_descent(y, tx, initial_w, max_iters, gamma, kind = 'mse'):
     for n_iter in range(max_iters):
         grad,loss = compute_gradient(y,tx,w, kind)
         w = w - gamma * grad
+        grad2,trash =compute_gradient(y,tx,ws[len(ws)-2], kind)
         # store w and loss
         ws.append(w)
         losses.append(loss)
-        print("Gradient Descent({bi}/{ti}): loss={l}, w0={w0}, w1={w1}".format(
-              bi=n_iter, ti=max_iters - 1, l=loss, w0=w[0], w1=w[1]))
+        
+        
+        
+        gamma=abs((np.dot(ws[len(ws)-1]-ws[len(ws)-2],grad-grad2))/(np.dot(grad-grad2,grad-grad2))
+        
+        print("Gradient Descent({bi}/{ti}): loss={l}, w0={w0}, gamma={gamma}".format(
+              bi=n_iter, ti=max_iters - 1, l=loss, w0=w[0], gamma=gamma))
     return losses, ws
 
 def least_squares_GD(y, tx, initial_w, max_iters, gamma):
