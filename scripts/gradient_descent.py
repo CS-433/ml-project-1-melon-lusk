@@ -57,4 +57,4 @@ def adaptative_step_gradient_descent(y, tx, initial_w, max_iters, gamma, kind = 
         
         print("Gradient Descent({bi}/{ti}): loss={l}, w0={w0}, gamma={gamma}".format(
               bi=n_iter, ti=max_iters - 1, l=loss, w0=w[0], gamma=gamma))
-    return losses, ws
+    return w, loss
