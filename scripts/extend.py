@@ -22,6 +22,6 @@ def build_poly(x, degree):
 def extend(x,fs):
     result = x
     for function in fs:
-        extension = function(x)
+        extension = function(x[:, :30])
         result = np.c_[result,extension]
     return result
