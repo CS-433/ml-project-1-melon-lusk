@@ -2,6 +2,7 @@
 """Gradient Descent"""
 from costs import *
 import numpy as np
+from logistic_regression import *
 
 def compute_gradient(y, tx, w, kind = 'mse'):
     """Compute the gradient."""
@@ -23,7 +24,6 @@ def general_gradient_descent(y, tx, initial_w, max_iters, gamma, kind = 'mse'):
     for n_iter in range(max_iters):
         grad,loss = compute_gradient(y,tx,w, kind)
         w = w - gamma * grad
-        grad2,trash =compute_gradient(y,tx,ws[len(ws)-2], kind)
         # store w and loss
         ws.append(w)
         losses.append(loss)

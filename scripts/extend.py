@@ -8,6 +8,7 @@ def build_poly(x, degree):
     """polynomial basis functions for input data x, for j=0 up to j=degree."""
     n = x.shape[0]
     result = np.ones((n,1))
+    x = x[:,:30]
     if degree == 0:
         return result
     else:

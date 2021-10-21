@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+from logistic_regression import *
 
 def compute_MSE(y,tx,w):
     e = y - np.dot(tx, w)
