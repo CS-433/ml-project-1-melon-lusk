@@ -78,25 +78,18 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
 ### LEAST SQUARES USING NORMAL EQUATIONS
 
 def least_squares(y, tx):
-    gram_matrix = np.dot(tx,tx.T)
-    w = w = np.linalg.solve(gram_matrix, np.dot(tx,y))
+    gram_matrix = np.dot(tx.T,tx)
+    w = np.linalg.solve(gram_matrix, np.dot(tx.T,y))
     loss = compute_loss(y,tx,w,'mse')
     return (w, loss)
         
         
 def ridge_regression(y,tx,lambda_):
-        return np.dot((np.dot(tx,(tx.T)) + lambda_*(2*len(y)) * np.identity(tx.shape[0])) , np.dot(tx,y))
-        
+        w =  np.linalg.solve((np.dot(tx.T,tx) + lambda_*(2*len(y)) * np.identity(tx.T.shape[0])) , np.dot(tx.T,y))
+        loss = compute_loss(y,tx,w,'mse')
+        return w, loss
         
 ### LOGISTIC REGRESSION
-        
-def logistic_regression(y, tx, initial_w, max_iters, gamma):
-    w = initial_w
-    for n_iter in range(max_iters):
-        grad, loss = compute_grad_logistic_regression(y,tx,w)
-        w = w - gamma * grad
-    return (w, loss)
-
 
 def batch_iter(y, tx, batch_size, num_batches=1, shuffle=True):
     """

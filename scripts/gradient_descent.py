@@ -2,7 +2,6 @@
 """Gradient Descent"""
 from costs import *
 import numpy as np
-from logistic_regression import *
 
 def compute_gradient(y, tx, w, kind = 'mse'):
     """Compute the gradient."""
