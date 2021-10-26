@@ -20,11 +20,9 @@ def calculate_gradient(y, tx, w):
 
 def calculate_hessian(tx, w) :
     pred = sigmoid(tx @ w)
-    test = np.einsum('ij,j->ij', tx.T, pred * (1 - pred))
+    txTD = np.einsum('ij,j->ij', tx.T, pred * (1 - pred))
     
-    return test @ tx
-
-    #return tx.T @ (pred * (1 - pred)) @ tx
+    return txTD @ tx
 
 
 def grad_loss(y, tx, w):
@@ -55,10 +53,6 @@ def penalized_logistic_regression(y,tx,initial_w, max_iters, gamma, lambda_):
         losses.append(loss)
         print("Logistic Regression ({bi}/{ti}): loss={l}, w0={w0}, gamma={gamma}".format(
               bi=i, ti=max_iters - 1, l=loss, w0=w[0], gamma=gamma))
-        
-        grad2 = calculate_gradient(y,tx,ws[-1])
-        
-        gamma=abs((np.dot(ws[-1]-ws[-2],grad-grad2)))/(np.dot(grad-grad2,grad-grad2))
     return w, loss
 
 
@@ -74,9 +68,5 @@ def logistic_regression(y,tx,initial_w, max_iters, gamma):
         losses.append(loss)
         print("Logistic Regression ({bi}/{ti}): loss={l}, w0={w0}, gamma={gamma}".format(
               bi=i, ti=max_iters - 1, l=loss, w0=w[0], gamma=gamma))
-        
-        #grad2 = calculate_gradient(y,tx,ws[-1])
-        
-        #gamma=abs((np.dot(ws[-1]-ws[-2],grad-grad2)))/(np.dot(grad-grad2,grad-grad2))
     return w, loss
     

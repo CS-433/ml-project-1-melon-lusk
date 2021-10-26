@@ -13,6 +13,16 @@ def compute_MAE(y,tx,w):
     N = tx.shape[0]
     return (np.absolute(y - np.dot(tx,w)).sum())/N
 
+def compute_MLE(y, tx, w):
+    """compute the loss: negative log likelihood."""
+    pred = sigmoid(tx @ w)
+    loss = 1/y.shape[0] * (y.T @ np.log(pred + 1e-10) + (1 - y).T @ np.log(1 - pred + 1e-10))
+    return np.squeeze(-loss)
+
+def sigmoid(t):
+    """apply the sigmoid function on t."""
+    return 1/(1 + np.exp(-t))
+
 
 def compute_loss(y, tx, w, kind = 'mse'):
     """Calculate the loss.
@@ -23,6 +33,8 @@ def compute_loss(y, tx, w, kind = 'mse'):
         return compute_MSE(y,tx,w)
     elif kind == 'mae':
         return compute_MAE(y,tx,w)
+    elif kind == 'mle':
+        return compute_MLE(y,tx,w)
     
 ### GRADIENT DESCENT
 def compute_gradient(y, tx, w, kind = 'mse'):
@@ -72,7 +84,7 @@ def general_stochastic_gradient_descent(
 
 
 def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
-    return general_stochastic_gradient_descent(y,tx,initial_w,len(y), max_iters,gamma, 'mse')
+    return general_stochastic_gradient_descent(y,tx,initial_w,1, max_iters,gamma, 'mse')
 
 
 ### LEAST SQUARES USING NORMAL EQUATIONS
@@ -90,6 +102,44 @@ def ridge_regression(y,tx,lambda_):
         return w, loss
         
 ### LOGISTIC REGRESSION
+
+def calculate_gradient_MLE(y, tx, w):
+    """compute the gradient of loss."""
+    pred = sigmoid(tx @ w)
+    return 1/y.shape[0] * (tx.T @ (pred - y))
+
+def logistic_regression(y,tx,initial_w, max_iters, gamma):
+    ws , losses = [initial_w], []
+    w = initial_w
+    for i in range(max_iters):
+        loss = compute_loss(y, tx, w, 'mle')
+        grad = calculate_gradient_MLE(y,tx,w)
+        w = w - gamma * grad
+        ws.append(w)
+        losses.append(loss)
+        print("Logistic Regression ({bi}/{ti}): loss={l}, w0={w0}, gamma={gamma}".format(
+              bi=i, ti=max_iters - 1, l=loss, w0=w[0], gamma=gamma))
+    return w, loss
+
+#Penalized logistic
+
+def penalized_grad_loss(y, tx, w, lambda_):
+    loss, grad = compute_loss(y,tx,w, 'mle'), calculate_gradient_MLE(y,tx,w)
+    loss += (lambda_/2) * np.power(np.linalg.norm(w),2)
+    grad += lambda_ * w
+    return grad, loss
+
+def reg_logistic_regression(y,tx,initial_w, max_iters, gamma, lambda_):
+    ws , losses = [initial_w], []
+    w = initial_w
+    for i in range(max_iters):
+        grad, loss = penalized_grad_loss(y,tx,w, lambda_)
+        w = w - gamma * grad
+        ws.append(w)
+        losses.append(loss)
+        print("Logistic Regression ({bi}/{ti}): loss={l}, w0={w0}, gamma={gamma}".format(
+              bi=i, ti=max_iters - 1, l=loss, w0=w[0], gamma=gamma))
+    return w, loss
 
 def batch_iter(y, tx, batch_size, num_batches=1, shuffle=True):
     """
