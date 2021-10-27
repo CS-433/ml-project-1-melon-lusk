@@ -6,7 +6,6 @@ from implementations import batch_iter
 
 def compute_stoch_gradient(y, tx, w, kind = 'mse'):
     """Compute a stochastic gradient from just few examples n and their corresponding y_n labels."""
-    # ***************************************************
     return compute_gradient(y,tx,w,kind)
 
 

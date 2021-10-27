@@ -13,6 +13,7 @@ def compute_MAE(y,tx,w):
     return (np.absolute(y - np.dot(tx,w)).sum())/N
 """Function used to compute the loss."""
 
+
 def compute_loss(y, tx, w, kind = 'mse'):
     """Calculate the loss.
 

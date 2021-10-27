@@ -19,7 +19,7 @@ def build_poly(x, degree):
             result = np.c_[result,extension]
         return result
 
-    
+#Extends the data with the functions in fs
 def extend(x,fs):
     result = x
     for function in fs:

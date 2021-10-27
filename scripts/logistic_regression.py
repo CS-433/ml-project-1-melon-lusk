@@ -55,7 +55,7 @@ def penalized_logistic_regression(y,tx,initial_w, max_iters, gamma, lambda_):
               bi=i, ti=max_iters - 1, l=loss, w0=w[0], gamma=gamma))
     return w, loss
 
-
+#Logistic regression (using Newton's method)
 def logistic_regression(y,tx,initial_w, max_iters, gamma):
     ws , losses = [initial_w], []
     w = initial_w
