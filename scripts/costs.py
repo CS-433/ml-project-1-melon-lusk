@@ -11,7 +11,6 @@ def compute_MSE(y,tx,w):
 def compute_MAE(y,tx,w):
     N = tx.shape[0]
     return (np.absolute(y - np.dot(tx,w)).sum())/N
-"""Function used to compute the loss."""
 
 
 def compute_loss(y, tx, w, kind = 'mse'):
@@ -19,10 +18,6 @@ def compute_loss(y, tx, w, kind = 'mse'):
 
     You can calculate the loss using mse or mae.
     """
-    # ***************************************************
-    # INSERT YOUR CODE HERE
-    # TODO: compute loss by MSE / MAE
-    # ***************************************************
     if kind == 'mse':
         return compute_MSE(y,tx,w)
     elif kind == 'mae':

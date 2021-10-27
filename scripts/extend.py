@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-"""implement a polynomial basis function."""
-
 import numpy as np
 
 
@@ -19,7 +17,7 @@ def build_poly(x, degree):
             result = np.c_[result,extension]
         return result
 
-#Extends the data with the functions in fs
+#Extends the data with the functions in fs applied on the original data
 def extend(x,fs):
     result = x
     for function in fs:
