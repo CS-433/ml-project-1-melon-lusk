@@ -8,7 +8,9 @@ The test and training data are in their zip files, as otherwise the CSVs would b
 
 ## The 'scripts' folder
 
-In order to build the best classifier, we used different methods we implemented in the labs to try and have the best performance. All of the files are in the scripts folder.
+All code (may it be scripts or notebooks) are in "scripts" folder.
+
+In order to build the best classifier, we used different methods we implemented in the labs to try and have the best performance. 
 
 There is also the "implementation.py" file that contains the graded methods asked by the project description.
 
