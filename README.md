@@ -14,7 +14,7 @@ In order to build the best classifier, we used different methods we implemented 
 
 There is also the "implementation.py" file that contains the graded methods asked by the project description. Some of the methods are the same as in other files, but this choice was made to ease the maintenance of the file and its grading.
 
-The best choice of a model we settled on is written in the script "run.py", that one can simply run by typing in a terminal.
+The best choice of a model we settled on is written in the script "run.py", that one can simply run in a terminal. The program is costly (both in time and computational ressources).
 
 This will produce a file called "output.csv" in the "data" folder that can be uploaded on the competition platform to check the performance.
 
